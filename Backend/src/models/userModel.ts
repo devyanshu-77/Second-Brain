@@ -3,7 +3,7 @@ import { email, string } from "zod";
 import { required } from "zod/mini";
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: string,
     required: true,
   },
