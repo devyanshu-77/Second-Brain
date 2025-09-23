@@ -1,19 +1,14 @@
 import mongoose from "mongoose";
-import { email, string } from "zod";
-import { required } from "zod/mini";
+
+
 
 const userSchema = new mongoose.Schema({
   username: {
-    type: string,
+    type: String,
     required: true,
   },
-  email: {
-    type: string,
-    required: true,
-    unique: true,
-  },
+  password: String,
 });
-
 
 const userModel = mongoose.model("User", userSchema);
 export default userModel;
