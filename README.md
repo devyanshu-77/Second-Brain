@@ -31,5 +31,5 @@
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/<your-username>/Second-Brain.git
+git clone https://github.com/devyanshu-77/Second-Brain.git
 cd Second-Brain
