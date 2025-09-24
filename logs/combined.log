@@ -1,0 +1,5 @@
+{"level":"info","message":"New user signup User - tsst","timestamp":"2025-09-24 17:21:09"}
+{"level":"info","message":"DB connection successfull","timestamp":"2025-09-24 17:26:39"}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"2025-09-24 17:26:39"}
+{"level":"info","message":"New user signup User - tsssdfsdt","timestamp":"2025-09-24 17:26:42"}
+{"level":"info","message":"POST /api/v1/users/signup 201 121 - 907.061 ms","timestamp":"2025-09-24 17:26:42"}

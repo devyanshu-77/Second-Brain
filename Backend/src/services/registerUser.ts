@@ -1,3 +1,4 @@
+import logger from "../config/logger.js";
 import { AppError } from "../errors/AppError.js";
 import userModel from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
@@ -12,7 +13,12 @@ interface UserInput {
 export async function registerUser({ username, password }: UserInput) {
   try {
     const existingUser = await checkExistingUser(username);
-    if (existingUser) throw new AppError("User already exists!", 409);
+    if (existingUser) {
+      logger.warn(
+        `Found existing user for the username - ${existingUser.username}`
+      );
+      throw new AppError("User already exists!", 409);
+    }
 
     const hashedPassword = await hashPassword(password);
     const newUser = await userModel.create({
