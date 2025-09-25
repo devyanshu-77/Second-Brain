@@ -1,15 +1,24 @@
-import mongoose from "mongoose";
+import { model, Schema } from "mongoose";
+import type { HydratedDocument } from "mongoose";
 
+interface Iuser {
+  username: string;
+  password: string;
+}
 
+type UserDocument = HydratedDocument<Iuser>;
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<Iuser>({
   username: {
     type: String,
     unique: true,
     required: true,
   },
-  password: String,
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
-const userModel = mongoose.model("User", userSchema);
+const userModel = model<Iuser>("User", userSchema);
 export default userModel;

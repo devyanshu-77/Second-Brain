@@ -17,7 +17,7 @@ export async function registerUser({ username, password }: UserInput) {
       logger.warn(
         `Found existing user for the username - ${existingUser.username}`
       );
-      throw new AppError("User already exists!", 409);
+      throw new AppError("Username is already taken!", 409);
     }
 
     const hashedPassword = await hashPassword(password);
@@ -25,8 +25,11 @@ export async function registerUser({ username, password }: UserInput) {
       username,
       password: hashedPassword,
     });
-    const id = String(newUser._id);
-    const token = generateToken(id);
+    const payload = {
+      id: String(newUser._id),
+      username: newUser.username,
+    };
+    const token = generateToken(payload);
     return {
       user: {
         username: newUser.username,

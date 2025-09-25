@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const signupSchema = z.object({
+const signinSchema = z.object({
   username: z
     .string()
     .trim()
@@ -27,5 +27,4 @@ const signupSchema = z.object({
     ),
 });
 
-export type SignupType = z.infer<typeof signupSchema>;
-export default signupSchema;
+export default signinSchema;
