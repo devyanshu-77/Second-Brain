@@ -3,7 +3,7 @@ import { AppError } from "../errors/AppError.js";
 import userModel from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
 import { hashPassword } from "../utils/hashPassword.js";
-import { checkExistingUser } from "./checkExistingUser.js";
+import { findUser } from "./findUser.js";
 
 interface UserInput {
   username: string;
@@ -12,7 +12,7 @@ interface UserInput {
 
 export async function registerUser({ username, password }: UserInput) {
   try {
-    const existingUser = await checkExistingUser(username);
+    const existingUser = await findUser(username);
     if (existingUser) {
       logger.warn(
         `Found existing user for the username - ${existingUser.username}`

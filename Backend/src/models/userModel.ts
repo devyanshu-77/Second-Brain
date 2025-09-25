@@ -6,7 +6,7 @@ interface Iuser {
   password: string;
 }
 
-type UserDocument = HydratedDocument<Iuser>;
+export type UserDocument = HydratedDocument<Iuser>;
 
 const userSchema = new Schema<Iuser>({
   username: {

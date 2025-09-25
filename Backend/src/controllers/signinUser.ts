@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { checkExistingUser } from "../services/checkExistingUser.js";
+import { findUser } from "../services/findUser.js";
 import { verifyPassword } from "../utils/verifyPassword.js";
 import { AppError } from "../errors/AppError.js";
 import { generateToken } from "../utils/generateToken.js";
@@ -12,7 +12,7 @@ export async function signinController(
 ) {
   try {
     const { username, password } = req.body;
-    const user = await checkExistingUser(username);
+    const user = await findUser(username);
     if (!user) {
       return next(new AppError("Username or password incorrect", 401));
     }

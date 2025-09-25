@@ -1,5 +1,7 @@
+import { config } from "dotenv";
+config();
 import jwt from "jsonwebtoken";
-const jwtSecret = String(process.env.JWT_SECRET);
+const JWT_SECRET = process.env.JWT_SECRET;
 import { AppError } from "../errors/AppError.js";
 import logger from "../config/logger.js";
 
@@ -10,7 +12,8 @@ interface Payload {
 
 export function generateToken(payload: Payload) {
   try {
-    const token = jwt.sign(payload, jwtSecret);
+    console.log("JWT_SE")
+    const token = jwt.sign(payload, JWT_SECRET!);
     return token;
   } catch (error) {
     logger.error("Error while generating token ", error);
