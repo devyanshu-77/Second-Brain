@@ -11,10 +11,9 @@ export async function connectDB() {
   } catch (error) {
     if (error instanceof Error) {
       logger.error("DB connection failed error - ", error)
-      console.log(`DB connection error - ${error.message}`);
     } else {
-      logger.error("DB connection failed error - ", error);
-      console.log("DB connection error - unkown error ", error);
+      logger.error("DB connection failed unkown error - ", error);
     }
+    process.exit(1)
   }
 }

@@ -11,6 +11,6 @@ export async function hashPassword(password: string) {
     return hashedPassword;
   } catch (error) {
     logger.warn("Error while hashing password ", error);
-    throw new Error("Something went wrong. Please try again later.");
+    throw new Error("Internal server error");
   }
 }

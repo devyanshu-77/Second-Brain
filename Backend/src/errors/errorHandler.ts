@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { AppError } from "./AppError.js";
-import { success } from "zod";
+import logger from "../config/logger.js";
 
 export function globalErrorHandler(
   err: any,
@@ -8,12 +8,12 @@ export function globalErrorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log("Error - ", err);
-  console.log("Error stack - ", err.stack);
   if (err instanceof AppError) {
+    logger.error("Major user side error - ", err)
     return res
       .status(err.statusCode)
       .json({ success: false, message: err.message });
   }
+  logger.error("Major server side error - ", err)
   res.status(500).json({ success: false, message: "Internal server error" });
 }

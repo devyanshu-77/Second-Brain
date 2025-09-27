@@ -19,11 +19,12 @@ const contentSchema = new Schema<Content>({
     type: String,
     required: true,
   },
-  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+  tags: [{ type: String, ref: "Tag" }],
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
 });
 
-const contentModel = model<Content>("Conent", contentSchema)
+const contentModel = model<Content>("Conent", contentSchema);
+export default contentModel;

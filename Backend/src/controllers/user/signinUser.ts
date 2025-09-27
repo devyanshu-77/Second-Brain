@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
-import { findUser } from "../services/findUser.js";
-import { verifyPassword } from "../utils/verifyPassword.js";
-import { AppError } from "../errors/AppError.js";
-import { generateToken } from "../utils/generateToken.js";
-import logger from "../config/logger.js";
+import { findUser } from "../../services/findUser.js";
+import { verifyPassword } from "../../utils/verifyPassword.js";
+import { AppError } from "../../errors/AppError.js";
+import { generateToken } from "../../utils/generateToken.js";
+import logger from "../../config/logger.js";
 
 export async function signinController(
   req: Request,
@@ -30,7 +30,6 @@ export async function signinController(
         id: user._id,
         username: user.username,
       },
-      errors: null,
     });
   } catch (err) {
     logger.error("Error while user signin error - ", err);

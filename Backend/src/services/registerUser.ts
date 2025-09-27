@@ -38,9 +38,10 @@ export async function registerUser({ username, password }: UserInput) {
       token,
     };
   } catch (error) {
+    logger.error(`Failed to register user - ${username}`)
     if (error instanceof AppError) {
       throw error;
     }
-    throw new Error("Failed to register user. Please try again later.");
+    throw new Error("Internal server error");
   }
 }

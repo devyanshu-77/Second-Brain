@@ -9,9 +9,10 @@ export async function verifyPassword(password: string, hashedPassword: string) {
       logger.info("Failed to verify password !");
       throw new AppError("Username or Password incorrect", 401);
     }
+    logger.info("Verified password");
     return true;
   } catch (error) {
-    if(error instanceof AppError) throw error;
+    if (error instanceof AppError) throw error;
     logger.error("Error while password verification error - ", error);
     throw new Error("Internal server error");
   }

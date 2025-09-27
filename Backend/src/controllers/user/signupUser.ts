@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { registerUser } from "../services/registerUser.js";
-import logger from "../config/logger.js";
-import { AppError } from "../errors/AppError.js";
+import { registerUser } from "../../services/registerUser.js";
+import logger from "../../config/logger.js";
+import { AppError } from "../../errors/AppError.js";
 
 export async function signupController(
   req: Request,

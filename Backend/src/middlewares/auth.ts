@@ -4,14 +4,9 @@ import type { Request, Response, NextFunction } from "express";
 import logger from "../config/logger.js";
 import { AppError } from "../errors/AppError.js";
 import jwt from "jsonwebtoken";
-import { string, success } from "zod";
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-interface TokenPayload {
-  id: string;
-  username: string;
-}
 
 export function authMiddleware(
   req: Request,
@@ -19,17 +14,27 @@ export function authMiddleware(
   next: NextFunction
 ) {
   try {
-    const token = req.cookies?.token;
-    console.log("JWT_SECRET - ", JWT_SECRET);
+    const token = req.cookies.token;
     if (!token) {
       logger.info("Didn't get token for verification");
-      throw new AppError("Please login to continue", 401);
+      return res.status(401).json({
+        success: false,
+        message: "Please login to continue",
+        errors: null,
+      });
     }
-    const decoded = jwt.verify(token, JWT_SECRET!) as {id: string, username: string};
+    const decoded = jwt.verify(token, JWT_SECRET!) as {
+      id: string;
+      username: string;
+    };
     if (!decoded.id || !decoded.username) {
+      logger.warn("Didn't get token data after verifying");
       return res
-        .status(403)
-        .json({ success: false, message: "Authentication failed" });
+        .status(401)
+        .json({
+          success: false,
+          message: "Unauthorized please login to continue",
+        });
     }
     req.user = decoded;
     next();
