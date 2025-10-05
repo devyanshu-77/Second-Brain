@@ -1,34 +1,43 @@
+import type { ReactElement } from "react";
+
 interface ButtonUI {
   variant: "primary" | "secondary";
-  size: "sm" | "md" | "lg" | "xl" | "2xl";
+  size?: "sm" | "md" | "lg";
   text: String;
-  startIcon?: any;
-  endIcon?: any;
+  startIcon?: ReactElement;
+  endIcon?: ReactElement;
+  gap?: String;
+  hoverVariant?: string;
+  fullWidth?: boolean;
   onClick: () => void;
 }
 
 const sizeStyles = {
-  sm: "w-24 py-1 px-2 rounded-xl",
-  md: "w-fit py-2 px-6 rounded-xl",
-  lg: "w-fit py-2 px-12 rounded-xl",
-  xl: "w-fit py-2 px-14 rounded-xl",
-  "2xl": "w-fit py-2 px-16 rounded-xl",
+  sm: "py-1 px-3 rounded-xl text-sm",
+  md: "py-2 px-4 rounded-md text-md",
+  lg: "py-2 px-6 rounded-md text-xl",
 };
 
 const variantStyles = {
-  primary: "bg-btnPrimary",
-  secondary: "bg-btnSecondary",
+  primary: "bg-btnPrimary text-white",
+  secondary: "bg-btnSecondary text-black",
 };
 
 const Button = (props: ButtonUI) => {
-  console.log((variantStyles[props.variant], sizeStyles[props.size]));
+  const StartIcon = props.startIcon;
+
   return (
-    <div
+    <button
       onClick={props.onClick}
-      className={`${variantStyles[props.variant]} ${sizeStyles[props.size]}`}
+      className={`${variantStyles[props.variant]} ${
+        sizeStyles[props?.size!] || sizeStyles["sm"]
+      } 
+      } cursor-pointer flex justify-evenly gap-2 items-center w-fit`}
     >
+      {StartIcon}
       {props.text}
-    </div>
+      {props.endIcon}
+    </button>
   );
 };
 

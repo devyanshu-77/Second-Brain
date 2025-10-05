@@ -1,47 +1,36 @@
 import Button from "./components/Button";
+import PlusIcon from "./icon/PlusIcon";
+import ShareIcon from "./icon/ShareIcon";
 
 const App = () => {
   return (
-    <div className="flex items-center gap-8 mt-2">
+    <div className="flex items-center justify-evenly gap-8 mt-2">
       <Button
-        text={"Size: sm"}
-        size="sm"
-        variant={"primary"}
+        variant="primary"
+        text="sm Button"
         onClick={() => {
-          alert("Hello");
+          console.log("click");
         }}
+        startIcon={<PlusIcon size="sm" />}
+        endIcon={<ShareIcon size="sm" />}
       />
       <Button
-        text={"Size: md"}
+        variant="secondary"
+        text="Md Button"
         size="md"
-        variant={"primary"}
         onClick={() => {
-          alert("Hello");
+          console.log("click");
         }}
+        startIcon={<PlusIcon size="md" />}
       />
       <Button
-        text={"Size: lg"}
+        variant="secondary"
+        text="lg Button"
         size="lg"
-        variant={"primary"}
         onClick={() => {
-          alert("Hello");
+          console.log("click");
         }}
-      />
-      <Button
-        text={"Size: xl"}
-        size="xl"
-        variant={"primary"}
-        onClick={() => {
-          alert("Hello");
-        }}
-      />
-      <Button
-        text={"Size: 2xl"}
-        size="2xl"
-        variant={"secondary"}
-        onClick={() => {
-          alert("Hello");
-        }}
+        startIcon={<PlusIcon size="lg" />}
       />
     </div>
   );
