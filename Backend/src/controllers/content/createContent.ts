@@ -5,7 +5,7 @@ import logger from "../../config/logger.js";
 
 async function createContent(req: Request, res: Response) {
   try {
-    const { id } = req?.user!;
+    const { id } = req.user!;
     const { title, link, tags } = req.body;
     const newContent = await contentModel.create({
       title,

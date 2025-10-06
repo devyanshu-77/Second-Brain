@@ -1,4 +1,3 @@
-import { Schema } from "mongoose";
 import * as z from "zod";
 
 const contentSchema = z.object({

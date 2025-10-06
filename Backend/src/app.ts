@@ -9,8 +9,8 @@ import contentRouter from "./routes/contentRouter.js";
 app.use(express.json());
 app.use(cookieParser());
 app.use(morganMiddleware);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/contents", contentRouter);
+app.use("/api/v1/brain/users", userRouter);
+app.use("/api/v1/brain/contents", contentRouter);
 
 app.use(globalErrorHandler);
 

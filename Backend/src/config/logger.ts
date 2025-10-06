@@ -11,7 +11,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(
-        winston.format.printf(({ timestamp, level, message, ...meta }) => {
+        winston.format.printf(({ timestamp, level, message }) => {
           return `${timestamp} ${level.toUpperCase()}: ${message}`;
         })
       ),

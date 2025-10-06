@@ -10,6 +10,7 @@ export function validateInput(schema: ZodType) {
       if (!validationResults.success) {
         const errors = validationResults.error;
         const formattedErrors = handleInputErros(errors);
+        logger.info("Invalid input error - ", errors);
         return res.status(422).json({
           success: false,
           message: "Invalid input",
