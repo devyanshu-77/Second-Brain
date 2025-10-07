@@ -1,0 +1,11 @@
+# Root .gitignore (SecondBrain/.gitignore)
+
+# Ignore all node_modules in subfolders
+**/node_modules
+
+# Logs
+**/logs
+*.log
+
+# Env files
+**/.env
