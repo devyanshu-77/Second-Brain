@@ -1,29 +1,21 @@
-import winston from "winston";
+import { createLogger, format, transports } from "winston";
+const { combine, timestamp, json } = format;
 
-const logger = winston.createLogger({
+const consoleLogFormat = format.combine(
+  format.colorize(),
+  format.printf(({ level, message, timestamp }) => {
+    return `${level}: ${message}  ${timestamp}`;
+  })
+);
+
+const logger = createLogger({
   level: "info",
-  format: winston.format.combine(
-    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    winston.format.errors({ stack: true }),
-    winston.format.splat(),
-    winston.format.json()
-  ),
+  format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), json()),
   transports: [
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.printf(({ timestamp, level, message }) => {
-          return `${timestamp} ${level.toUpperCase()}: ${message}`;
-        })
-      ),
+    new transports.Console({
+      format: consoleLogFormat,
     }),
-    new winston.transports.File({
-      filename: "./logs/error.log",
-      level: "error",
-    }),
-    new winston.transports.File({
-      filename: "./logs/combined.log",
-      level: "info",
-    }),
+    new transports.File({ filename: "./logs/app.log" }),
   ],
 });
 

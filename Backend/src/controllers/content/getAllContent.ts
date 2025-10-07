@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import contentModel from "../../models/contentModel.js";
 import logger from "../../config/logger.js";
+import { success } from "zod";
 
 async function getAllContent(req: Request, res: Response) {
   try {
@@ -8,7 +9,14 @@ async function getAllContent(req: Request, res: Response) {
     const content = await contentModel
       .find({ user: id })
       .populate("user", "username");
-    res.status(201).json({success: true, message: "Sent all data", data: content});
+    if (content.length <= 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No content found for this user" });
+    }
+    res
+      .status(201)
+      .json({ success: true, message: "Sent all data", data: content });
     logger.info(`Sent all content to userId - ${id}`);
   } catch (error) {
     logger.error("Error while fetching all content");
