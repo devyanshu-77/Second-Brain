@@ -3,6 +3,7 @@
 @theme {
   --color-btnPrimary: #5046e4;
   --color-btnSecondary: #e0e7ff;
-  --color-bgPrimary: #F7F9FB;
-  
+  --color-bgPrimary: #f7f9fb;
+  --color-textPrimary: #1f2a3b;
+  --color-textSecondary: #686E73;
 }

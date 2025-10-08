@@ -5,6 +5,7 @@
   "main": "server.ts",
   "type": "module",
   "scripts": {
+    "test": "tsc nodemon dist/server.js",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "nodemon --watch ./src dist/server.js"

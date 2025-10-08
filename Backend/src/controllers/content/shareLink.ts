@@ -5,6 +5,7 @@ import contentModel from "../../models/contentModel.js";
 
 
 async function getSharedContent(req: Request, res: Response) {
+  console.log("Reached get shared content")
   const link = req.params.shareId;
   const sharedContent = await LinkModel.findOne({ hash: link });
   if (!sharedContent) {

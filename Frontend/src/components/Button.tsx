@@ -6,6 +6,7 @@ interface ButtonProps {
   size: "sm" | "md" | "lg";
   startIcon?: ReactElement;
   endIcon?: ReactElement;
+  onclick: () => void;
 }
 
 const varinatStyles = {
