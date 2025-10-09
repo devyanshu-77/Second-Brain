@@ -6,6 +6,7 @@ import { globalErrorHandler } from "./errors/errorHandler.js";
 import morganMiddleware from "./middlewares/morganLogger.js";
 import contentRouter from "./routes/contentRouter.js";
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morganMiddleware);
