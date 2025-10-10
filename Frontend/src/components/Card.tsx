@@ -2,6 +2,7 @@ import DeleteIcon from "../icons/DeleteIcon";
 import ShareIcon from "../icons/ShareIcon";
 import YoutubeIcon from "../icons/YoutubeIcon";
 import checkMedia from "../utils/checkMedia";
+import ErrorFallback from "./ErrorFallback";
 
 interface CardPropsInterface {
   title: string;
@@ -13,22 +14,17 @@ interface CardPropsInterface {
 
 const Card = (props: CardPropsInterface) => {
   const MediaComponent = checkMedia(props.type);
-  if(!MediaComponent) {
-    return <>
-      <h1>Sorry</h1>
-    </>
-  }
   return (
-    <div className="px-4 py-6 border-2 m-8 border-slate-300 w-68 h-fit rounded-lg">
+    <div className="px-4 py-6 bg-white border-2 border-slate-300 w-68 h-fit rounded-lg break-inside-avoid mt-3">
       {/* Card Header */}
       <div className="flex items-center justify-between">
         <div>
-          <YoutubeIcon size="sm" />
+          <YoutubeIcon color="dark" size="sm" />
         </div>
         <p className="font-medium">{props.title}</p>
         <div className="flex items-center gap-2">
-          <ShareIcon size="sm" />
-          <DeleteIcon size="sm" />
+          <ShareIcon color="dark" size="sm" />
+          <DeleteIcon color="dark" size="sm" />
         </div>
       </div>
 
@@ -39,7 +35,8 @@ const Card = (props: CardPropsInterface) => {
         )}
         {props.link && (
           <div className="w-full h-fit">
-            { <MediaComponent postLink={props.link} />}
+            {MediaComponent && <MediaComponent postLink={props.link} />}
+            {!MediaComponent && <ErrorFallback />}
           </div>
         )}
       </div>

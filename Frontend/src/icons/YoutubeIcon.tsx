@@ -1,13 +1,14 @@
 import type { IconSizeInterface } from "./IconTypes";
-import { iconSizeVariants } from "./IconTypes";
+import {iconColorVariants, iconSizeVariants } from "./IconTypes";
 
-const YoutubeIcon = ({size}: IconSizeInterface) => {
+
+const YoutubeIcon = ({size, color}: IconSizeInterface) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={iconSizeVariants[size]}
       height={iconSizeVariants[size]}
-      fill="#000"
+      fill={`${iconColorVariants[color]}`}
       viewBox="0 0 256 256"
       className="cursor-pointer"
     >

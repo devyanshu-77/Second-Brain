@@ -1,13 +1,14 @@
 import type { IconSizeInterface } from "./IconTypes";
 import { iconSizeVariants } from "./IconTypes";
+import { iconColorVariants } from "./IconTypes";
 
-const ShareIcon = ({ size }: IconSizeInterface) => {
+const ShareIcon = ({ size, color }: IconSizeInterface) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={`${iconSizeVariants[size]}`}
       height={`${iconSizeVariants[size]}`}
-      fill="#000"
+      fill={`${iconColorVariants[color]}`}
       viewBox="0 0 256 256"
       className="cursor-pointer"
     >
