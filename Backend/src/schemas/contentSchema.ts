@@ -7,6 +7,7 @@ const contentSchema = z.object({
     .max(25, { message: "Title length must not exceed 25 characters" }),
   link: z.string(),
   tags: z.string(),
+  type: z.string(),
 });
 
 export default contentSchema;

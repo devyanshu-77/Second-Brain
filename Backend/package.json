@@ -28,10 +28,12 @@
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/morgan": "^1.9.10",
     "axios": "^1.12.2",
     "cheerio": "^1.1.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^14.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.1",

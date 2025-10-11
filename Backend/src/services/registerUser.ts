@@ -12,14 +12,6 @@ interface UserInput {
 
 export async function registerUser({ username, password }: UserInput) {
   try {
-    const existingUser = await findUser(username);
-    if (existingUser) {
-      logger.warn(
-        `Found existing user for the username - ${existingUser.username}`
-      );
-      throw new AppError("Username is already taken!", 409);
-    }
-
     const hashedPassword = await hashPassword(password);
     const newUser = await userModel.create({
       username,

@@ -6,7 +6,6 @@ import ErrorFallback from "./ErrorFallback";
 
 interface CardPropsInterface {
   title: string;
-  description?: string;
   link?: string;
   tags: string;
   type: string;
@@ -30,9 +29,6 @@ const Card = (props: CardPropsInterface) => {
 
       {/* Card Main */}
       <div className="mt-3">
-        {props.description && (
-          <p className="text-justify">{props.description}</p>
-        )}
         {props.link && (
           <div className="w-full h-fit">
             {MediaComponent && <MediaComponent postLink={props.link} />}

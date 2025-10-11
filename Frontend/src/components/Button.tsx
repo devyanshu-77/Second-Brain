@@ -7,7 +7,9 @@ interface ButtonProps {
   fullWidth?: boolean;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
-  onclick: () => void;
+  onclick?: () => void;
+  loading?: boolean;
+  type?: "submit" | "reset" | "button";
 }
 
 const varinatStyles = {
@@ -29,13 +31,19 @@ const Button = ({
   endIcon,
   onclick,
   fullWidth,
+  loading,
+  type
 }: ButtonProps) => {
   return (
     <button
+      type={type ?? "button"}
       onClick={onclick}
+      disabled={loading}
       className={`${varinatStyles[variant]} ${sizeStyles[size]} ${
         fullWidth ? "w-full " : "w-fit"
-      } flex items-center cursor-pointer`}
+      } flex items-center justify-center cursor-pointer text-center ${
+        loading ? "opacity-60 cursor-wait" : ""
+      }`}
     >
       {startIcon}
       {text}

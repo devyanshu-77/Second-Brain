@@ -11,7 +11,11 @@ const Main = () => {
     setModalOpen((prev) => !prev);
   }
   return (
-    <div className="bg-[#f7f7f7] flex flex-col gap-5 flex-1 pl-4">
+    <div className="bg-[#f7f7f7] min-h-screen flex flex-col gap-5 flex-1 pl-4">
+      {isModalOpen && (
+        <AddContentModal isOpen={isModalOpen} setOpen={toggleModal} />
+      )}
+      {/* Main section Header */}
       <div className="h-15 pl-2 pr-2 w-full flex items-center justify-between">
         <h1 className="text-[1.45rem] font-semibold">All Notes</h1>
         <div className="flex gap-4">
@@ -33,7 +37,7 @@ const Main = () => {
           />
         </div>
       </div>
-      {isModalOpen && <AddContentModal isOpen={isModalOpen} setOpen={toggleModal} />}
+      {/* Main section Main */}
       <div className="h-full w-full">
         <div className="columns-4">
           <Card
@@ -48,12 +52,7 @@ const Main = () => {
             type="youtube"
             link="https://www.youtube.com/live/r_DyB4QjGjU?si=pWc9DNElKyHU0Cnp"
           />
-          <Card
-            title="Vimeo render test"
-            tags="testing"
-            type="vimeo"
-            link="https://vimeo.com/524933864?fl=pl&fe=sh"
-          />
+
           <Card
             title="Tweet render test"
             tags="testing"
@@ -66,12 +65,7 @@ const Main = () => {
             type="youtube"
             link="https://youtu.be/AjvxmJdHipo?si=fmuZHc6CFfz6WZnV"
           />
-          <Card
-            title="Vimeo render test"
-            tags="testing"
-            type="vimeo"
-            link="https://vimeo.com/524933864?fl=pl&fe=sh"
-          />
+
           <Card
             title="Tweet render test"
             tags="testing"
@@ -85,10 +79,9 @@ const Main = () => {
             link="https://youtu.be/54w5Okqb4c0?si=IzXp9PlkJc6GKz1b"
           />
           <Card
-            title="Vimeo render test"
+            title="Youtube render test"
             tags="testing"
-            type="vimeo"
-            link="https://vimeo.com/524933864?fl=pl&fe=sh"
+            type="youtube"
           />
         </div>
       </div>

@@ -3,7 +3,7 @@ import { model, Schema, Types, type HydratedDocument } from "mongoose";
 interface Content {
   title: string;
   link: string;
-  source: string;
+  type: string;
   tags: Schema.Types.ObjectId[];
   user: Schema.Types.ObjectId;
 }
@@ -19,7 +19,7 @@ const contentSchema = new Schema<Content>({
     type: String,
     required: true,
   },
-  source: {
+  type: {
     type: String,
     required: true,
   },
