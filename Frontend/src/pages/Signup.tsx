@@ -1,39 +1,29 @@
 import React from "react";
 import FormIntupt from "../components/Input";
 import Button from "../components/Button";
-import axios, { type AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import axiosInstance from "../api/axiosInstance";
+import { signupUser } from "../store/userSlice";
+import type { AppDispatch, RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+
 
 type FormData = {
   username: string;
   password: string;
 };
 
-interface MyApiResponse {
-  data?: {
-    username: string;
-    id: string;
-  };
-  message: string;
-  errors?: any;
-  success: boolean;
-}
-
 const Signup = () => {
+  const diapatch = useDispatch<AppDispatch>();
+  const {loading, error, isAuthenticated} = useSelector((state: RootState) => state.user)
   const navigate = useNavigate();
   function handleNavigate() {
     navigate("/signin");
   }
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data);
-    const response: AxiosResponse<MyApiResponse> = await axiosInstance.post(
-      "users/signup",
-      data
-    );
-    console.log(response);
-    console.log(response.data)
+    const { username, password } = data;
+    const userData = await diapatch(signupUser({ username, password }));
+    console.log(userData)
   };
   const {
     register,
@@ -54,6 +44,7 @@ const Signup = () => {
             type="text"
             placeholder="Username"
           />
+          {error && <p className="text-black">{error}</p>}
           <FormIntupt
             register={{ ...register("password") }}
             type="password"
