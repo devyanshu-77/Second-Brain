@@ -1,0 +1,29 @@
+import type { Request, Response } from "express";
+
+import { findUser } from "../../services/findUser.js";
+
+import contentModel from "../../models/contentModel.js";
+
+async function getCurrentUser(req: Request, res: Response) {
+  const username: string | undefined = req.user?.username;
+  const existingUser = await findUser(username);
+  if (!existingUser) {
+    return res.status(401).json({
+      success: false,
+      message:
+        "Authentication required. Please sign in to access this resource.",
+    });
+  }
+  const contents = await contentModel
+    .find({ user: existingUser.id })
+    .populate("user", "username");
+  return res.status(200).json({
+    success: true,
+    message: "User is authenticated",
+    data: {
+      contents,
+    },
+  });
+}
+
+export default getCurrentUser;

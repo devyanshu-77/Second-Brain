@@ -10,7 +10,7 @@ import createContent from "../controllers/content/createContent.js";
 import deleteController from "../controllers/content/deleteContent.js";
 import getSharedContent from "../controllers/content/shareLink.js";
 import createShareLink from "../controllers/content/shareContent.js";
-import embedLink from "../controllers/content/embedLinks.js";
+
 
 contentRouter.post(
   "/create",
@@ -21,7 +21,6 @@ contentRouter.post(
 contentRouter.get("/all", authMiddleware, getAllContent);
 contentRouter.delete("/delete/:contentId", authMiddleware, deleteController);
 contentRouter.post("/share", authMiddleware, createShareLink);
-contentRouter.get("/oembed", authMiddleware, embedLink);
 contentRouter.get("/:shareId", getSharedContent);
 
 

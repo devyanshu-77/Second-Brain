@@ -7,7 +7,6 @@ import { signupUser } from "../store/userSlice";
 import type { AppDispatch, RootState } from "../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
-
 type FormData = {
   username: string;
   password: string;
@@ -15,15 +14,20 @@ type FormData = {
 
 const Signup = () => {
   const diapatch = useDispatch<AppDispatch>();
-  const {loading, error, isAuthenticated} = useSelector((state: RootState) => state.user)
   const navigate = useNavigate();
+  const { loading, error, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
   function handleNavigate() {
     navigate("/signin");
   }
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { username, password } = data;
-    const userData = await diapatch(signupUser({ username, password }));
-    console.log(userData)
+    diapatch(signupUser({ username, password }));
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
   };
   const {
     register,

@@ -16,17 +16,40 @@ interface signupResponse {
   };
 }
 
-export const signupUser = createAsyncThunk<signupResponse, signupData, { rejectValue: string }>(
-  "signupUser",
-  async (userData, { rejectWithValue }) => {
+export const signupUser = createAsyncThunk<
+  signupResponse,
+  signupData,
+  { rejectValue: string }
+>("signupUser", async (userData, { rejectWithValue }) => {
+  try {
+    const res = await axiosInstanceUser.post("/signup", userData);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue(error.response?.data.errors || "Signup failed");
+    }
+    return rejectWithValue("Unexpected error occurred");
+  }
+});
+
+interface FetchUserResponse {
+  username: string;
+  id: string;
+}
+
+export const fetchUser = createAsyncThunk<string, { rejectWithValue: Function }>(
+  "fetchUser",
+  async ({ rejectWithValue }) => {
     try {
-      const res = await axiosInstanceUser.post("/signup", userData);
+      const res = await axiosInstanceUser("/me");
       return res.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data.errors || "Signup failed");
+        return rejectWithValue(
+          error.response?.data.message || "Unauthorized user"
+        );
       }
-      return rejectWithValue("Unexpected error occurred");
+      return rejectWithValue("Unauthorized user");
     }
   }
 );
@@ -52,6 +75,7 @@ export const userSlice = createSlice({
     builder.addCase(signupUser.fulfilled, (state, action) => {
       (state.isAuthenticated = true), (state.loading = false);
       state.username = action.payload.data.username;
+      
     });
     builder.addCase(signupUser.pending, (state) => {
       (state.isAuthenticated = false), (state.loading = true);
@@ -63,9 +87,24 @@ export const userSlice = createSlice({
       state.loading = false;
       state.username = null;
       state.error = action.payload;
+
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      (state.isAuthenticated = true), (state.loading = false);
+      state.username = action.payload;
+    });
+    builder.addCase(fetchUser.pending, (state) => {
+      (state.isAuthenticated = false), (state.loading = true);
+      state.username = null;
+      state.error = null;
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.username = null;
+      state.error = action.payload;
     });
   },
 });
-
 
 export default userSlice.reducer;
