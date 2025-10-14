@@ -3,9 +3,9 @@ import FormIntupt from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import {useDispatch} from "react-redux"
+import type { AppDispatch } from "../store/store";
 import { signupUser } from "../store/userSlice";
-import type { AppDispatch, RootState } from "../store/store";
-import { useDispatch, useSelector } from "react-redux";
 
 type FormData = {
   username: string;
@@ -13,21 +13,15 @@ type FormData = {
 };
 
 const Signup = () => {
-  const diapatch = useDispatch<AppDispatch>();
+  const dispatch: AppDispatch = useDispatch();
+  
   const navigate = useNavigate();
-  const { loading, error, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
   function handleNavigate() {
     navigate("/signin");
   }
-
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const { username, password } = data;
-    diapatch(signupUser({ username, password }));
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
+    const res = await dispatch(signupUser(data));
+    console.log(res)
   };
   const {
     register,
@@ -48,7 +42,7 @@ const Signup = () => {
             type="text"
             placeholder="Username"
           />
-          {error && <p className="text-black">{error}</p>}
+
           <FormIntupt
             register={{ ...register("password") }}
             type="password"
