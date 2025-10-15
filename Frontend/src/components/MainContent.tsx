@@ -5,7 +5,13 @@ import ShareIcon from "../icons/ShareIcon";
 import PlusIcon from "../icons/PlusIcon";
 import AddContentModal from "./AddContentModal";
 
-const Main = () => {
+interface MainProps {
+  username: string | null;
+  id: string | null;
+}
+
+const Main = ({ username, id }: MainProps) => {
+  console.log(username, id)
   const [isModalOpen, setModalOpen] = useState(false);
   function toggleModal() {
     setModalOpen((prev) => !prev);
@@ -78,11 +84,7 @@ const Main = () => {
             type="youtube"
             link="https://youtu.be/54w5Okqb4c0?si=IzXp9PlkJc6GKz1b"
           />
-          <Card
-            title="Youtube render test"
-            tags="testing"
-            type="youtube"
-          />
+          <Card title="Youtube render test" tags="testing" type="youtube" />
         </div>
       </div>
     </div>

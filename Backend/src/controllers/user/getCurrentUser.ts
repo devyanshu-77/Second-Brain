@@ -14,14 +14,18 @@ async function getCurrentUser(req: Request, res: Response) {
         "Authentication required. Please sign in to access this resource.",
     });
   }
-  const contents = await contentModel
-    .find({ user: existingUser.id })
-    .populate("user", "username");
+  const contents = await contentModel.find({ user: existingUser.id });
+
+  const user = {
+    username: existingUser.username,
+    id: existingUser.id,
+  };
   return res.status(200).json({
     success: true,
     message: "User is authenticated",
     data: {
       contents,
+      user,
     },
   });
 }

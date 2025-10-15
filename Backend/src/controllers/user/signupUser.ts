@@ -28,7 +28,9 @@ export async function signupController(
     res.status(201).json({
       success: true,
       message: "User registered successfully",
-      data: user,
+      data: {
+        user: user,
+      },
     });
     logger.info(`New user signup User - ${user.username}`);
   } catch (error) {

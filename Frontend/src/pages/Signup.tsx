@@ -3,8 +3,8 @@ import FormIntupt from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import {useDispatch} from "react-redux"
-import type { AppDispatch } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
 import { signupUser } from "../store/userSlice";
 
 type FormData = {
@@ -14,15 +14,16 @@ type FormData = {
 
 const Signup = () => {
   const dispatch: AppDispatch = useDispatch();
-  
+  const {isAuthenticated, error} = useSelector((state: RootState) => state.user)
   const navigate = useNavigate();
   function handleNavigate() {
     navigate("/signin");
   }
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const res = await dispatch(signupUser(data));
-    console.log(res)
+    await dispatch(signupUser(data));
+    if(isAuthenticated) return navigate("/dashboard");
   };
+    console.log(error)
   const {
     register,
     handleSubmit,

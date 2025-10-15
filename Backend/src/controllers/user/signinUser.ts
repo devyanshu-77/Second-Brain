@@ -27,8 +27,10 @@ export async function signinController(
       success: true,
       message: "Sign in successful",
       data: {
-        id: user._id,
-        username: user.username,
+        user: {
+          id: user._id,
+          username: user.username,
+        },
       },
     });
   } catch (err) {
