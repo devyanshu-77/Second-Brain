@@ -6,11 +6,12 @@ interface ViewYoutubeMediaProps {
 }
 
 const ViewYoutbeMedia: React.FC<ViewYoutubeMediaProps> = ({ postLink }) => {
+  console.log(postLink)
   const regex =
     /(?:youtube\.com\/(?:shorts\/|live\/|watch\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const match = postLink.match(regex);
   const videoId = match ? match[1] : null;
-
+  console.log(videoId)
   if (!videoId) return <ErrorFallback />;
   return (
     <iframe

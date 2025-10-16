@@ -14,9 +14,13 @@ async function getAllContent(req: Request, res: Response) {
         .status(404)
         .json({ success: false, message: "No content found for this user" });
     }
-    res
-      .status(201)
-      .json({ success: true, message: "Sent all data", data: content });
+    res.status(201).json({
+      success: true,
+      message: "Sent all data",
+      data: {
+        content: content,
+      },
+    });
     logger.info(`Sent all content to userId - ${id}`);
   } catch (error) {
     logger.error("Error while fetching all content");
