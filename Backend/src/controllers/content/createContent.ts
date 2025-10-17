@@ -19,7 +19,9 @@ async function createContent(req: Request, res: Response) {
     console.log("end point reached 2");
     res.status(201).json({
       success: true,
-      data: newContent,
+      data: {
+        contents: newContent,
+      },
       message: "Created new content",
     });
     logger.info(`Created new content for userId - ${id}`);

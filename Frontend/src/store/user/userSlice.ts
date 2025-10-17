@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signupUser, getCurrentUser, getContents } from "./userThunk";
+import { signupUser, getCurrentUser } from "./userThunk";
 import type { InitialState } from "./userTypes";
+import {
+  createContent,
+  getContents,
+  getSharedContent,
+} from "../content/contentThunk";
+import { shareContent } from "../content/contentThunk";
 
 const initialState: InitialState = {
   username: null,
@@ -9,6 +15,8 @@ const initialState: InitialState = {
   error: undefined,
   isAuthenticated: null,
   contents: [],
+  link: null,
+  sharedContent: null,
 };
 
 const userSlice = createSlice({
@@ -49,7 +57,6 @@ const userSlice = createSlice({
       state.loading = false;
       state.username = action.payload.user?.username!;
       state.id = action.payload.user?.id!;
-      state.contents = action.payload.contents;
     });
     builder.addCase(getCurrentUser.pending, (state) => {
       state.loading = true;
@@ -76,7 +83,37 @@ const userSlice = createSlice({
     });
     builder.addCase(getContents.rejected, (state, action) => {
       state.error = action.payload?.message;
+      state.contents = null;
       state.loading = false;
+    });
+    builder.addCase(createContent.fulfilled, (state, action) => {
+      if (state.contents) {
+        state.contents = [...state.contents, action.payload.contents];
+      }
+      state.loading = false;
+      state.error = undefined;
+    });
+    builder.addCase(createContent.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createContent.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload?.message;
+    });
+    builder.addCase(shareContent.fulfilled, (state, action) => {
+      state.link = action.payload.link;
+    });
+    builder.addCase(shareContent.pending, (state) => {
+      state.link = null;
+    });
+    builder.addCase(shareContent.rejected, (state, action) => {
+      state.error = action.payload?.message;
+      state.link = null;
+    });
+    builder.addCase(getSharedContent.fulfilled, (state, action) => {
+      console.log("Shared content action payload - s ", action.payload);
+      console.log("Shared content itself - s ", action.payload.contents);
+      state.sharedContent = action.payload.contents!;
     });
   },
 });

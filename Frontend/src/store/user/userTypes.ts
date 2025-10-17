@@ -4,6 +4,7 @@ export interface ApiResponse {
     id: string;
   };
   contents?: [];
+  link?: string;
 }
 
 export interface ApiError {
@@ -22,4 +23,6 @@ export interface InitialState {
   error: undefined | string;
   isAuthenticated: boolean | null;
   contents?: [] | null;
+  link?: string | null;
+  sharedContent: [] | null;
 }

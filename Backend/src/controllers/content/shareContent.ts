@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import LinkModel from "../../models/linkModel.js";
 import { v4 as uuid } from "uuid";
-import { success } from "zod";
 
 async function createShareLink(req: Request, res: Response) {
   const share = req.body.share;
@@ -26,7 +25,9 @@ async function createShareLink(req: Request, res: Response) {
     res.status(201).json({
       success: true,
       message: "Generated sharable link",
-      data: link.hash,
+      data: {
+        link: link.hash,
+      },
     });
   } else {
     await LinkModel.deleteOne({ userId: id });

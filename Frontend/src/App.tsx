@@ -4,6 +4,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SharedContent from "./pages/SharedContent";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/share/:shareId" element={<SharedContent/>} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBorad />} />
         </Route>

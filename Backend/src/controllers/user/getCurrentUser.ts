@@ -14,8 +14,6 @@ async function getCurrentUser(req: Request, res: Response) {
         "Authentication required. Please sign in to access this resource.",
     });
   }
-  const contents = await contentModel.find({ user: existingUser._id });
-  console.log("Content in backend - ", contents);
   const user = {
     username: existingUser.username,
     id: existingUser.id,
@@ -25,7 +23,6 @@ async function getCurrentUser(req: Request, res: Response) {
     message: "User is authenticated",
     data: {
       user,
-      contents,
     },
   });
 }

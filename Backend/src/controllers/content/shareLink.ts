@@ -3,9 +3,8 @@ import LinkModel from "../../models/linkModel.js";
 import userModel from "../../models/userModel.js";
 import contentModel from "../../models/contentModel.js";
 
-
 async function getSharedContent(req: Request, res: Response) {
-  console.log("Reached get shared content")
+  console.log("Reached get shared content");
   const link = req.params.shareId;
   const sharedContent = await LinkModel.findOne({ hash: link });
   if (!sharedContent) {
@@ -30,7 +29,9 @@ async function getSharedContent(req: Request, res: Response) {
   res.status(200).json({
     success: true,
     message: "Shared content retrieved successfully.",
-    data: content,
+    data: {
+      contents: content,
+    },
   });
 }
 

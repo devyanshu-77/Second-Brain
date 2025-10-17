@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../store/store";
 import { Navigate, Outlet } from "react-router-dom";
 import Loading from "../pages/Loading";
-import { getContents, getCurrentUser } from "../store/user/userThunk";
+import { getCurrentUser } from "../store/user/userThunk";
+import { getContents } from "../store/content/contentThunk";
 
 
 const ProtectedRoute = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { isAuthenticated, loading } = useSelector(
+  const { isAuthenticated, loading, contents } = useSelector(
     (state: RootState) => state.user
   );
-
   useEffect(() => {
     if (isAuthenticated === null && !loading) {
       dispatch(getCurrentUser());

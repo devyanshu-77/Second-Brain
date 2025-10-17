@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Button from "./Button";
 import ShareIcon from "../icons/ShareIcon";
@@ -6,16 +6,29 @@ import PlusIcon from "../icons/PlusIcon";
 import AddContentModal from "./AddContentModal";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
+import type { Content } from "../store/content/contentType";
+import GenerateLink from "./GenerateLink";
 
 const Main = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [genLink, setGenLink] = useState(false);
+
   function toggleModal() {
     setModalOpen((prev) => !prev);
+  }
+  function handleGenLink() {
+    if (!isModalOpen) {
+      setGenLink((prev) => !prev);
+    }
   }
   const { contents } = useSelector((state: RootState) => state.user);
   console.log(contents);
   return (
     <div className="bg-[#f7f7f7] min-h-screen flex flex-col gap-5 flex-1 pl-4">
+      {genLink && !isModalOpen && (
+        <GenerateLink isOpen={genLink} setOpen={handleGenLink} />
+      )}
+      {/* Create content model */}
       {isModalOpen && (
         <AddContentModal isOpen={isModalOpen} setOpen={toggleModal} />
       )}
@@ -27,9 +40,7 @@ const Main = () => {
             variant="secondary"
             size="md"
             text="Share Brain"
-            onclick={() => {
-              console.log("Hello");
-            }}
+            onclick={handleGenLink}
             startIcon={<ShareIcon size="sm" color="dark" />}
           />
           <Button
@@ -44,24 +55,19 @@ const Main = () => {
       {/* Main section Main */}
       <div className="h-full w-full">
         <div className="columns-4">
-          {contents && contents.length <= 0 && <p className="text-xl">Add new content</p>}
-          {contents &&
-            contents.length > 0 &&
-            contents.map((content) => {
-              {
-                console.log(content.tag);
-              }
-              return (
-                <Card
-                  key={content._id}
-                  title={content.title}
-                  tags={content.tags.map((tag) => tag)}
-                  type={content.type}
-                  link={content.link}
-                />
-              );
-            })}
-
+          {!contents || contents.length === 0 ? (
+            <p className="text-xl">Add new content</p>
+          ) : (
+            contents.map((content: Content) => (
+              <Card
+                key={content._id}
+                title={content.title}
+                tags={content.tags}
+                type={content.type}
+                link={content.link}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

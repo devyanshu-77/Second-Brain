@@ -1,0 +1,4 @@
+.twitter-tweet iframe {
+  width: 100% !important;
+  height: auto  /* optional, helps for videos */
+}

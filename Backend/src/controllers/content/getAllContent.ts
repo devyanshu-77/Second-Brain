@@ -18,7 +18,7 @@ async function getAllContent(req: Request, res: Response) {
       success: true,
       message: "Sent all data",
       data: {
-        content: content,
+        contents: content,
       },
     });
     logger.info(`Sent all content to userId - ${id}`);

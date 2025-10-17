@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  axiosInstanceContent,
   axiosInstanceUser,
 } from "../../api/axiosInstance";
 import axios from "axios";
 import type { ApiResponse, SignupData, ApiError } from "./userTypes";
+
 
 export const signupUser = createAsyncThunk<
   ApiResponse,
@@ -41,20 +41,4 @@ export const getCurrentUser = createAsyncThunk<
   }
 });
 
-export const getContents = createAsyncThunk<
-  ApiResponse,
-  void,
-  { rejectValue: ApiError }
->("getContents", async (_, { rejectWithValue }) => {
-  try {
-    const res = await axiosInstanceContent("/all");
-    console.log("res object - ", res)
-    console.log("Content to payload - ", res.data.data.contents)
-    return res.data.data.contents;
-  } catch (error) {
-    if(axios.isAxiosError(error)) {
-      return rejectWithValue({message: error.response?.data.message})
-    }
-    return rejectWithValue({message: "Something went wrong"})
-  }
-});
+

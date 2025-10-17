@@ -3,8 +3,8 @@ import FormIntupt from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../store/store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
 import { signupUser } from "../store/user/userThunk";
 
 
@@ -21,6 +21,7 @@ const Signup = () => {
     navigate("/signin");
   }
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    console.log("Form data - ", data)
     try {
       await dispatch(signupUser(data)).unwrap();
       navigate("/dashboard");
@@ -44,13 +45,12 @@ const Signup = () => {
           action=""
         >
           <FormIntupt
-            register={{ ...register("username") }}
+            register={register("username") }
             type="text"
             placeholder="Username"
           />
-
           <FormIntupt
-            register={{ ...register("password") }}
+            register={register("password") }
             type="password"
             placeholder="Password"
           />

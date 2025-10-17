@@ -13,8 +13,6 @@ const SideBar = () => {
       <div className="w-full mt-5 flex flex-col gap-3">
         <SideBarItem text="X" logo={<ShareIcon size="sm" color="dark" />} />
         <SideBarItem text="YouTube" logo={<ShareIcon size="sm" color="dark" />} />
-        <SideBarItem text="Documents" logo={<ShareIcon size="sm" color="dark" />} />
-        <SideBarItem text="Tags" logo={<ShareIcon size="sm" color="dark" />} />
       </div>
     </div>
   );
