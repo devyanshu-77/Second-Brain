@@ -36,11 +36,12 @@ const GenerateLink = ({ isOpen, setOpen }: Props) => {
     console.log("If statement link - ", link);
     linkContainer.current!.value = `http://localhost:5173/share/${link}`;
   }
+  console.log("Link - ", link)
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 flex justify-center items-center bg-[rgba(0,0,0,0.4)]">
       <div
         ref={htmlElem}
-        className="w-95 py-5 px-4 bg-white flex flex-col items-center gap-5"
+        className="w-98 py-8 rounded-md px-4 bg-white flex flex-col items-center gap-5"
       >
         <p className="text-xl font-semibold text-center">Generate Link</p>
         <div className="w-full flex flex-col gap-5">
@@ -49,6 +50,11 @@ const GenerateLink = ({ isOpen, setOpen }: Props) => {
             inputRef={linkContainer}
             placeholder="Get your link..."
           />
+          {link && (
+            <p className="text-center text-red-500">
+              You already have a working link
+            </p>
+          )}
           <Button
             onclick={handleClick}
             type="submit"

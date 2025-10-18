@@ -11,7 +11,8 @@ export const createContent = createAsyncThunk<
 >("createContent", async (data, { rejectWithValue }) => {
   try {
     const res = await axiosInstanceContent.post("/create", data);
-    console.log("Content res - ", res);
+    console.log("Create content res - ", res);
+    console.log("Create content data - ", res.data.data);
     return res.data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -30,7 +31,7 @@ export const getContents = createAsyncThunk<
     const res = await axiosInstanceContent("/all");
     console.log("res object - ", res);
     console.log("Content to payload - ", res.data.data);
-    return res.data.data.contents;
+    return res.data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return rejectWithValue({ message: error.response?.data.message });

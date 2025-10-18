@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import type { Content } from "../store/content/contentType";
 import GenerateLink from "./GenerateLink";
+import Loading from "../pages/Loading";
 
 const Main = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,7 +23,10 @@ const Main = () => {
     }
   }
   const { contents } = useSelector((state: RootState) => state.user);
-  console.log(contents);
+  console.log("Main content - ", contents);
+  console.log("Main content type - ", typeof contents);
+
+
   return (
     <div className="bg-[#f7f7f7] min-h-screen flex flex-col gap-5 flex-1 pl-4">
       {genLink && !isModalOpen && (

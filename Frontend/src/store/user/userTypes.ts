@@ -20,7 +20,10 @@ export interface InitialState {
   username: null | string;
   id: null | string;
   loading: boolean;
-  error: undefined | string;
+  error: {
+    contentError: null | string;
+    userError: null | string;
+  };
   isAuthenticated: boolean | null;
   contents?: [] | null;
   link?: string | null;

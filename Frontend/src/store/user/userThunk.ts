@@ -25,6 +25,25 @@ export const signupUser = createAsyncThunk<
   }
 });
 
+export const signinUser = createAsyncThunk<
+  ApiResponse,
+  SignupData,
+  { rejectValue: ApiError }
+>("signinUser", async (data, { rejectWithValue }) => {
+  try {
+    const res = await axiosInstanceUser.post("/signin", data);
+    console.log(" Signin response", res.data);
+    console.log("Signin user ", res.data.data);
+    return res.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("Error message - ", error.response?.data.message);
+      return rejectWithValue({ message: error.response?.data.message });
+    }
+    return rejectWithValue({ message: "Unexpected error occurred" });
+  }
+});
+
 export const getCurrentUser = createAsyncThunk<
   ApiResponse,
   void,

@@ -20,7 +20,7 @@ async function createContent(req: Request, res: Response) {
     res.status(201).json({
       success: true,
       data: {
-        contents: newContent,
+        contents: [newContent],
       },
       message: "Created new content",
     });
