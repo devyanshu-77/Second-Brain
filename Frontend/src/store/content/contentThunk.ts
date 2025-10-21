@@ -21,7 +21,6 @@ export const createContent = createAsyncThunk<
     return rejectWithValue({ message: "Something went wrong" });
   }
 });
-
 export const getContents = createAsyncThunk<
   ApiResponse,
   void,
@@ -39,11 +38,6 @@ export const getContents = createAsyncThunk<
     return rejectWithValue({ message: "Something went wrong" });
   }
 });
-
-interface Share {
-  share: boolean;
-}
-
 export const shareContent = createAsyncThunk<
   ApiResponse,
   void,
@@ -61,8 +55,6 @@ export const shareContent = createAsyncThunk<
     return rejectWithValue({ message: "Something went wrong" });
   }
 });
-
-
 export const getSharedContent = createAsyncThunk<
   ApiResponse,
   string,
@@ -73,6 +65,25 @@ export const getSharedContent = createAsyncThunk<
     console.log("res object link - ", res);
     console.log("Content to payload link - ", res.data.data);
     return res.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue({ message: error.response?.data.message });
+    }
+    return rejectWithValue({ message: "Something went wrong" });
+  }
+});
+
+export const deleteContent = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: ApiError }
+>("deleteContent", async (id, { rejectWithValue }) => {
+  console.log("Reached Delete Thunk id - ", id)
+  try {
+    const res = await axiosInstanceContent.delete(`/delete/${id}`);
+    console.log("res object delete - ", res);
+    console.log("Content to payload delete - ", res.data);
+    return id;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return rejectWithValue({ message: error.response?.data.message });

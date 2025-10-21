@@ -1,3 +1,5 @@
+import type { Content } from "../content/contentType";
+
 export interface ApiResponse {
   user?: {
     username: string;
@@ -25,7 +27,7 @@ export interface InitialState {
     userError: null | string;
   };
   isAuthenticated: boolean | null;
-  contents?: [] | null;
+  contents?: Content[] | null;
   link?: string | null;
   sharedContent: [] | null;
 }

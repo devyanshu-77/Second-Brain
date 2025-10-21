@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../store/store";
 import { signinUser } from "../store/user/userThunk";
 import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 type FormData = {
   username: string;

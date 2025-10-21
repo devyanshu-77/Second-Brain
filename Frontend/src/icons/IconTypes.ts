@@ -1,12 +1,13 @@
 export interface IconSizeInterface {
   size: "sm" | "md" | "lg";
-  color: "dark" | "light"
+  color: "dark" | "light";
+  onClick?: () => void;
 }
 
 export const iconColorVariants = {
   dark: "#000",
-  light: "#fff"
-}
+  light: "#fff",
+};
 
 export const iconSizeVariants = {
   sm: "20",

@@ -1,29 +1,49 @@
+import { useDispatch } from "react-redux";
 import DeleteIcon from "../icons/DeleteIcon";
 import ShareIcon from "../icons/ShareIcon";
 import YoutubeIcon from "../icons/YoutubeIcon";
 import checkMedia from "../utils/checkMedia";
 import ErrorFallback from "./ErrorFallback";
+import type { AppDispatch } from "../store/store";
+import { deleteContent } from "../store/content/contentThunk";
+import XIcon from "../icons/XIcon";
+import type { ReactElement } from "react";
 
 interface CardPropsInterface {
   title: string;
   link?: string;
   tags: string;
   type: string;
+  id: string;
+}
+
+interface IconsInterface {
+  "youtube": ReactElement,
+  "x": ReactElement
 }
 
 const Card = (props: CardPropsInterface) => {
+  const dispatch: AppDispatch = useDispatch();
   const MediaComponent = checkMedia(props.type);
+  const icons: IconsInterface = {
+    "youtube": <YoutubeIcon size="sm" color="dark" />,
+    "x": <XIcon size="sm" color="dark" />
+  }
+  function handleClick() {
+    console.log("Key test - ", props.id)
+    dispatch(deleteContent(props.id))
+  }
   return (
     <div className="px-4 py-6 bg-white border-2 border-slate-300 w-68 h-fit rounded-lg break-inside-avoid mt-3">
       {/* Card Header */}
       <div className="flex items-center justify-between">
         <div>
-          <YoutubeIcon color="dark" size="sm" />
+          {icons[props.type]}
         </div>
         <p className="font-medium">{props.title}</p>
         <div className="flex items-center gap-2">
           <ShareIcon color="dark" size="sm" />
-          <DeleteIcon color="dark" size="sm" />
+          <DeleteIcon onClick={handleClick} color="dark" size="sm" />
         </div>
       </div>
 

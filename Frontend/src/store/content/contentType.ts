@@ -3,7 +3,7 @@ export interface Content {
   _id: string;
   link: string;
   user: string;
-  tags: string[];
+  tags: string;
   type: string;
 }
 

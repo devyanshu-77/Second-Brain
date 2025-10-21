@@ -6,6 +6,7 @@ async function deleteController(req: Request, res: Response) {
   try {
     const contentId = req.params.contentId;
     const { id } = req.user!;
+    console.log("Backend content Id - ", contentId, "Backend userId - ", id);
     const deleteResult = await contentModel.findOneAndDelete({
       _id: contentId,
       user: id,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 import Button from "./Button";
 import ShareIcon from "../icons/ShareIcon";
@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import type { Content } from "../store/content/contentType";
 import GenerateLink from "./GenerateLink";
-import Loading from "../pages/Loading";
+import ShowXPost from "./ShowXPost";
+
 
 const Main = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [genLink, setGenLink] = useState(false);
-
   function toggleModal() {
     setModalOpen((prev) => !prev);
   }
@@ -23,9 +23,6 @@ const Main = () => {
     }
   }
   const { contents } = useSelector((state: RootState) => state.user);
-  console.log("Main content - ", contents);
-  console.log("Main content type - ", typeof contents);
-
 
   return (
     <div className="bg-[#f7f7f7] min-h-screen flex flex-col gap-5 flex-1 pl-4">
@@ -65,6 +62,7 @@ const Main = () => {
             contents.map((content: Content) => (
               <Card
                 key={content._id}
+                id={content._id}
                 title={content.title}
                 tags={content.tags}
                 type={content.type}

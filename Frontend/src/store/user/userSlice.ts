@@ -3,10 +3,12 @@ import { signupUser, getCurrentUser, signinUser } from "./userThunk";
 import type { InitialState } from "./userTypes";
 import {
   createContent,
+  deleteContent,
   getContents,
   getSharedContent,
 } from "../content/contentThunk";
 import { shareContent } from "../content/contentThunk";
+import type { Content } from "../content/contentType";
 
 const initialState: InitialState = {
   username: null,
@@ -133,6 +135,10 @@ const userSlice = createSlice({
       console.log("Shared content action payload - s ", action.payload);
       console.log("Shared content itself - s ", action.payload.contents);
       state.sharedContent = action.payload.contents!;
+    });
+    builder.addCase(deleteContent.fulfilled, (state, action) => {
+      const id = action.payload;
+      state.contents = state.contents?.filter((content: Content) => id !== content._id);
     });
   },
 });

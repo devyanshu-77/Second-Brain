@@ -1,9 +1,10 @@
 import type { IconSizeInterface } from "./IconTypes";
 import { iconColorVariants,  iconSizeVariants } from "./IconTypes";
 
-const DeleteIcon = ({size, color}: IconSizeInterface) => {
+const DeleteIcon = ({size, color, onClick}: IconSizeInterface) => {
   return (
     <svg
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       width={`${iconSizeVariants[size]}`}
       height={`${iconSizeVariants[size]}`}
