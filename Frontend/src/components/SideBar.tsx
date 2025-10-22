@@ -4,16 +4,10 @@ import SideBarItem from "./SideBarItem";
 import ShareIcon from "../icons/ShareIcon";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ setXPost }) => {
-  const navigate = useNavigate()
-  function handleNavigate() {
-    console.log("Navigated")
-    navigate("/dashboard")
-  }
+const SideBar = ({ setXPost, setYTPost }) => {
   return (
     <div className="h-screen w-[20%] bg-white pt-2">
       <div
-        onClick={handleNavigate}
         className="w-full h-15 flex items-center gap-2"
       >
         <img className="h-full" src={logo} alt="logo" />
@@ -27,6 +21,7 @@ const SideBar = ({ setXPost }) => {
         />
         <SideBarItem
           text="YouTube"
+          onclick={setYTPost}
           logo={<ShareIcon size="sm" color="dark" />}
         />
       </div>
