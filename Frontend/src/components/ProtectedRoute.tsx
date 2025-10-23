@@ -20,9 +20,6 @@ const ProtectedRoute = () => {
     }
     fetchData()
   }, [dispatch, isAuthenticated, loading]);
-  if (isAuthenticated === null || contents === null) {
-    return <Loading />;
-  }
   if (!isAuthenticated) {
     return <Navigate to="/signup" replace />;
   }

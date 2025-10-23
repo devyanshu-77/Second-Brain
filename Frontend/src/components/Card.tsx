@@ -41,8 +41,7 @@ const Card = (props: CardPropsInterface) => {
           {icons[props.type]}
         </div>
         <p className="font-medium">{props.title}</p>
-        <div className="flex items-center gap-2">
-          <ShareIcon color="dark" size="sm" />
+        <div className="flex items-center">
           <DeleteIcon onClick={handleClick} color="dark" size="sm" />
         </div>
       </div>

@@ -8,6 +8,8 @@ import type { AppDispatch } from "../store/store";
 import { signinUser } from "../store/user/userThunk";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
+import signinSchema from "../schemas/signinSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormData = {
   username: string;
@@ -27,15 +29,19 @@ const Signin = () => {
       await dispatch(signinUser(data)).unwrap();
       navigate("/dashboard");
     } catch (err) {
-      console.error(err);
     }
   };
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    clearErrors,
+    formState: { errors, dirtyFields },
+  } = useForm<FormData>({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+    resolver: zodResolver(signinSchema)
+  });
   return (
     <div className="w-screen h-screen bg-slate-200 flex justify-center items-center">
       <div className=" w-85 rounded-md bg-white py-10 px-6 text-center">
@@ -46,15 +52,29 @@ const Signin = () => {
           action=""
         >
           <FormIntupt
-            register={register("username")}
+            {...register("username", {
+              onChange: () => {
+                clearErrors("username");
+              },
+            })}
             type="text"
             placeholder="Username"
           />
+          {errors.username && dirtyFields.username && (
+            <p className="text-sm text-red-500">{errors.username.message}</p>
+          )}
           <FormIntupt
-            register={register("password")}
+            {...register("password", {
+              onChange: () => {
+                clearErrors("password");
+              },
+            })}
             type="password"
             placeholder="Password"
           />
+          {errors.password && dirtyFields.password && (
+            <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
           <Button
             type="submit"
             variant="primary"
@@ -62,6 +82,9 @@ const Signin = () => {
             size="lg"
             fullWidth={true}
           />
+          {error.userError && (
+            <p className="text-sm text-red-500">{error.userError}</p>
+          )}
         </form>
         <p className="text-sm mt-6 text-slate-700">
           Already have an account?{" "}
