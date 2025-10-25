@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const contentSchema = z.object({
+const addContentSchema = z.object({
   title: z
     .string()
     .min(4, { message: "Title length must contain 4 characters" })
@@ -13,4 +13,4 @@ const contentSchema = z.object({
   type: z.string(),
 });
 
-export default contentSchema;
+export default addContentSchema;

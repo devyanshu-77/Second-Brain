@@ -11,10 +11,11 @@ interface Props {
 }
 
 const GenerateLink = ({ isOpen, setOpen }: Props) => {
+  const linkBox = useRef<HTMLInputElement>(null);
   if (!isOpen) return null;
   const dispatch: AppDispatch = useDispatch();
-  const linkContainer = useRef<HTMLInputElement>(null);
   const { link } = useSelector((state: RootState) => state.user);
+  console.log("Link just after - ", link)
   const htmlElem = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function handleOutSideClick(e) {
@@ -32,11 +33,13 @@ const GenerateLink = ({ isOpen, setOpen }: Props) => {
   function handleClick() {
     dispatch(shareContent());
   }
-  if (link) {
-    console.log("If statement link - ", link);
-    linkContainer.current!.value = `http://localhost:5173/share/${link}`;
-  }
-  console.log("Link - ", link)
+  useEffect(() => {
+    if (link) {
+      console.log("If statement link - ", link);
+      linkBox.current!.value = `http://localhost:5173/share/${link}`;
+    }
+  }, [link])
+  console.log("Link - ", link);
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 flex justify-center items-center bg-[rgba(0,0,0,0.4)]">
       <div
@@ -45,11 +48,7 @@ const GenerateLink = ({ isOpen, setOpen }: Props) => {
       >
         <p className="text-xl font-semibold text-center">Generate Link</p>
         <div className="w-full flex flex-col gap-5">
-          <FormIntupt
-            type="text"
-            inputRef={linkContainer}
-            placeholder="Get your link..."
-          />
+          <input className="text-xl bg-slate-50 border-slate-500 border-2 outline-none px-4 py-2 rounded-md text-black" type="text" ref={linkBox} />
           {link && (
             <p className="text-center text-red-500">
               You already have a working link

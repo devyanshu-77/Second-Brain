@@ -10,7 +10,6 @@ import type { Content } from "../store/content/contentType";
 import GenerateLink from "./GenerateLink";
 import ShowXPost from "./ShowXPost";
 
-
 const Main = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [genLink, setGenLink] = useState(false);
@@ -22,7 +21,7 @@ const Main = () => {
       setGenLink((prev) => !prev);
     }
   }
-  const { contents } = useSelector((state: RootState) => state.user);
+  const { contents, loading } = useSelector((state: RootState) => state.user);
 
   return (
     <div className="bg-[#f7f7f7] min-h-screen flex flex-col gap-5 flex-1 pl-4">
@@ -56,20 +55,21 @@ const Main = () => {
       {/* Main section Main */}
       <div className="h-full w-full">
         <div className="columns-4">
-          {!contents || contents.length === 0 ? (
+          {loading && <p className="text-xl">Loading content...</p>}
+          {(!loading && !contents || contents?.length === 0) && (
             <p className="text-xl">Add new content</p>
-          ) : (
-            contents.map((content: Content) => (
-              <Card
-                key={content._id}
-                id={content._id}
-                title={content.title}
-                tags={content.tags}
-                type={content.type}
-                link={content.link}
-              />
-            ))
           )}
+
+          {contents?.map((content) => (
+            <Card
+              key={content._id}
+              id={content._id}
+              title={content.title}
+              tags={content.tag}
+              type={content.type}
+              link={content.link}
+            />
+          ))}
         </div>
       </div>
     </div>

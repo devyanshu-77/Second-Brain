@@ -55,17 +55,27 @@ const userSlice = createSlice({
       state.contents = null;
     });
     builder.addCase(signinUser.fulfilled, (state, action) => {
+      state.error.userError = null;
       state.username = action.payload.user?.username!;
       state.id = action.payload.user?.id!;
+      state.isAuthenticated = true;
+      state.loading = false;
     });
     builder.addCase(signinUser.pending, (state) => {
+      state.loading = true;
       state.username = null;
       state.id = null;
+      state.error.userError = null;
+      state.isAuthenticated = null;
+      state.contents = null;
     });
     builder.addCase(signinUser.rejected, (state, action) => {
+      state.loading = false;
       state.username = null;
       state.id = null;
       state.error.userError = action.payload?.message!;
+      state.isAuthenticated = false;
+      state.contents = null;
     });
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       console.log("Current userfull filled - ", action);
@@ -138,7 +148,9 @@ const userSlice = createSlice({
     });
     builder.addCase(deleteContent.fulfilled, (state, action) => {
       const id = action.payload;
-      state.contents = state.contents?.filter((content: Content) => id !== content._id);
+      state.contents = state.contents?.filter(
+        (content: Content) => id !== content._id
+      );
     });
   },
 });

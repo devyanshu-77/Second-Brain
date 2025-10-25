@@ -10,6 +10,6 @@ export interface Content {
 export interface AddContentData {
   title: string;
   link: string;
-  tags: string;
+  tag: string;
   type: string;
 }
